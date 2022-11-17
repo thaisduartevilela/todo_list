@@ -5,14 +5,61 @@ class TodoListPage extends StatelessWidget
   const TodoListPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: TextField(),
+  Widget build(BuildContext context)
+  {
+    return Scaffold
+      (
+      appBar: AppBar(
+        title: Text('To-Do List'),
+      ),
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: Column(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(bottom:20),
+              child: Form(
+                key: _formKey,
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: TextFormField(
+                      controller: taskController,
+                      style: TextStyle(
+                        fontSize: 32,
+                        color: Colors.black87
+                      ),
+                      decoration: InputDecoration(
+                          hintText: 'Type a new task here...',
+                          hintStyle: TextStyle(
+                              fontSize: 20
+                          )
+                        ),
+                      keyboardType: TextInputType.text,
+                validator: (value){
+                     if (value.trim().isEmprty){
+                        return 'Task field it is required';
+                      }
+                      return null;
+                }
+                    ),
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(left: 20),
+                       FloatingActionButton(
+                        child: const Icon(Icons.add),
+                        onPressed: () {
+                          print('CLIQUEI...');
+                        }
+                      )
+                  )
+                ],
+              ),
+            )
             ),
+          ],
         ),
+      ),
     );
   }
 }
