@@ -5,8 +5,12 @@ class TodoListPage extends StatelessWidget
   const TodoListPage({Key? key}) : super(key: key);
 
   @override
+
   Widget build(BuildContext context)
   {
+    final TextEditingController taskController = TextEditingController();
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    List<String> _tasks = List();
     return Scaffold
       (
       appBar: AppBar(
@@ -19,12 +23,12 @@ class TodoListPage extends StatelessWidget
             Container(
               margin: EdgeInsets.only(bottom:20),
               child: Form(
-                //key: _formKey,
+                key: _formKey,
               child: Row(
                 children: <Widget>[
                   Expanded(
                     child: TextFormField(
-                     // controller: taskController,
+                     controller: taskController,
                       style: TextStyle(
                         fontSize: 32,
                         color: Colors.black87
@@ -36,21 +40,27 @@ class TodoListPage extends StatelessWidget
                           )
                         ),
                       keyboardType: TextInputType.text,
-                /*validator: (value){
-                     if (value.isEmpty){
+              /*  validator: (value){
+                     if (value.trim().isEmpty){
                         return 'Task field it is required';
                       }
                       return null;
-                }*/
+                },*/
                     ),
                   ),
-
-                       FloatingActionButton(
-                        child: const Icon(Icons.add),
-                        onPressed: () {
-                          print('CLIQUEI...');
-                        }
+                  Container(
+                    margin: EdgeInsets.only(left:20),
+                      child:FloatingActionButton(
+                          child: const Icon(Icons.add),
+                          onPressed: () {
+                          debugPrint('Pressed...');
+                          //if(_formKey.currentState.validate()) {
+                            _tasks.add(taskController.text);
+                            //taskControler.clear();
+                          }
+                        },
                       )
+                  )
                 ],
               ),
             )
