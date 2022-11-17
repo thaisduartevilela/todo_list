@@ -19,12 +19,12 @@ class TodoListPage extends StatelessWidget
             Container(
               margin: EdgeInsets.only(bottom:20),
               child: Form(
-                key: _formKey,
+                //key: _formKey,
               child: Row(
                 children: <Widget>[
                   Expanded(
                     child: TextFormField(
-                      controller: taskController,
+                     // controller: taskController,
                       style: TextStyle(
                         fontSize: 32,
                         color: Colors.black87
@@ -36,23 +36,21 @@ class TodoListPage extends StatelessWidget
                           )
                         ),
                       keyboardType: TextInputType.text,
-                validator: (value){
-                     if (value.trim().isEmprty){
+                /*validator: (value){
+                     if (value.isEmpty){
                         return 'Task field it is required';
                       }
                       return null;
-                }
+                }*/
                     ),
                   ),
-                  Container(
-                      margin: EdgeInsets.only(left: 20),
+
                        FloatingActionButton(
                         child: const Icon(Icons.add),
                         onPressed: () {
                           print('CLIQUEI...');
                         }
                       )
-                  )
                 ],
               ),
             )
