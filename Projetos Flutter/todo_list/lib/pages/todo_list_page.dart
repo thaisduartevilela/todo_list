@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 
-class TodoListPage extends StatelessWidget
-{
+class TodoListPage extends StatelessWidget {
   const TodoListPage({Key? key}) : super(key: key);
 
   @override
-
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     final TextEditingController taskController = TextEditingController();
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-    List<String> _tasks = List();
-    return Scaffold
-      (
+    List<String> _tasks = List.empty();
+    return Scaffold(
       appBar: AppBar(
         title: Text('To-Do List'),
       ),
@@ -21,50 +17,59 @@ class TodoListPage extends StatelessWidget
         child: Column(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(bottom:20),
-              child: Form(
-                key: _formKey,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: TextFormField(
-                     controller: taskController,
-                      style: TextStyle(
-                        fontSize: 32,
-                        color: Colors.black87
-                      ),
-                      decoration: InputDecoration(
-                          hintText: 'Type a new task here...',
-                          hintStyle: TextStyle(
-                              fontSize: 20
-                          )
-                        ),
-                      keyboardType: TextInputType.text,
-              /*  validator: (value){
-                     if (value.trim().isEmpty){
+                margin: EdgeInsets.only(bottom: 20),
+                child: Form(
+                  key: _formKey,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: TextFormField(
+                          controller: taskController,
+                          style: TextStyle(fontSize: 32, color: Colors.black87),
+                          decoration: InputDecoration(
+                              hintText: 'Type a new task here...',
+                              hintStyle: TextStyle(fontSize: 20)),
+                          keyboardType: TextInputType.text,
+                          validator: (value) {
+                            if (value!.trim().isEmpty){
                         return 'Task field it is required';
-                      }
-                      return null;
-                },*/
-                    ),
+                        }
+                            return value;
+                          },
+                        ),
+                      ),
+                      Container(
+                          margin: EdgeInsets.only(left: 20),
+                          child: FloatingActionButton(
+                            child: const Icon(Icons.add),
+                            onPressed: () {
+                              debugPrint('Pressed...');
+                              if (_formKey.currentState!.validate()) {
+                               setState() {
+                                 _tasks.add(taskController.text);
+                               };
+                                taskController.clear();
+                              }
+                            },
+                          ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left:20),
-                      child:FloatingActionButton(
-                          child: const Icon(Icons.add),
-                          onPressed: () {
-                          debugPrint('Pressed...');
-                          //if(_formKey.currentState.validate()) {
-                            _tasks.add(taskController.text);
-                            //taskControler.clear();
-                          }
-                        },
-                      )
-                  )
-                ],
-              ),
+                  ),
+                ),
+
+            Expanded(
+                child: ListView.builder(
+                  itemCount: _tasks.length,
+                  itemBuilder: (context, index){
+                    return Card(
+                      child: ListTile(
+                        title: Text(_tasks[index]),
+                      ) ,
+                    );
+                  },
+                )
             )
-            ),
           ],
         ),
       ),
