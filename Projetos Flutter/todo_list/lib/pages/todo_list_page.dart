@@ -34,7 +34,7 @@ class TodoListPage extends StatelessWidget {
                             if (value!.trim().isEmpty){
                         return 'Task field it is required';
                         }
-                            return value;
+                            return null;
                           },
                         ),
                       ),
